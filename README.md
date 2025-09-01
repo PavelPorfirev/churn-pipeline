@@ -37,10 +37,6 @@ python -m src.train --output models/model.joblib
 export MODEL_PATH=models/model.joblib
 uvicorn src.api:app --host 0.0.0.0 --port 8000
 ```
-POST `/predict` JSON:
-```json
-{"instances": [{"num_0": 0.1, "num_1": -0.2, "tenure": 12, "plan": "basic", "contract": "month-to-month"}]}
-```
 
 5. Запустить HPO (Optuna):
 ```
@@ -52,11 +48,3 @@ python -m src.hpo --trials 40 --save-best best_params.json
 ```
 python scripts/visualize_optuna.py --out-folder analysis
 ```
-
-## Структура репозитория
-- src/ - основной код
-- scripts/ - скрипты
-- models/ - модель
-- tests/ - простые unit-тесты
-- docker-compose.yml - локальный MLflow
-- Dockerfile - контейнеризация
