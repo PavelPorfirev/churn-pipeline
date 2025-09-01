@@ -20,7 +20,7 @@ def build_preprocessor(numeric_features: list[str], categorical_features: list[s
       - OneHotEncoder с sparse=True для категорий.
     """
     num_pipeline = Pipeline([("scaler", StandardScaler())])
-    cat_pipeline = Pipeline([("ohe", OneHotEncoder(handle_unknown="ignore", sparse=True))])
+    cat_pipeline = Pipeline([("ohe", OneHotEncoder(handle_unknown="ignore", sparse_output=True))])
     preprocessor = ColumnTransformer(
         transformers=[
             ("num", num_pipeline, numeric_features),
