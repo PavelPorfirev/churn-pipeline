@@ -59,4 +59,4 @@ python scripts/visualize_optuna.py --out-folder analysis
 - models/ - модель
 - tests/ - простые unit-тесты
 - docker-compose.yml - локальный MLflow
-- Dockerfile - контейнеризации
+- Dockerfile - контейнеризация
