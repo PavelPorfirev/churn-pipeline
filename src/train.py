@@ -15,7 +15,11 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def train(output: str = "models/model.joblib", params: dict[str, object] | None = None, random_state: int = 42):
+def train(
+    output: str = "models/model.joblib",
+    params: dict[str, object] | None = None,
+    random_state: int = 42,
+):
     """
     Обучает пайплайн и сохраняет его в файл и в MLflow.
     """
@@ -23,7 +27,9 @@ def train(output: str = "models/model.joblib", params: dict[str, object] | None 
     params = params or {"n_estimators": 100, "learning_rate": 0.1, "num_leaves": 31}
 
     df = generate_synthetic_churn(n_samples=20_000, random_state=random_state)
-    X_train, X_test, y_train, y_test = load_split(df, test_size=0.2, random_state=random_state)
+    X_train, X_test, y_train, y_test = load_split(
+        df, test_size=0.2, random_state=random_state
+    )
 
     numeric, categorical = get_feature_list(X_train)
     preprocessor = build_preprocessor(numeric, categorical)
@@ -48,7 +54,9 @@ def train(output: str = "models/model.joblib", params: dict[str, object] | None 
     feature_columns = X_train.columns.tolist()
     metadata_path = f"{output}.metadata.json"
     with open(metadata_path, "w", encoding="utf-8") as mf:
-        json.dump({"feature_columns": feature_columns}, mf, ensure_ascii=False, indent=2)
+        json.dump(
+            {"feature_columns": feature_columns}, mf, ensure_ascii=False, indent=2
+        )
     logger.info("Метаданные сохранены в %s", metadata_path)
 
     return {"roc_auc": roc, "average_precision": ap}

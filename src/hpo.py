@@ -41,7 +41,9 @@ def objective(trial: optuna.Trial) -> float:
     return roc
 
 
-def run_hpo(n_trials: int = 40, study_name: str = "churn-optuna", save_best: str | None = None):
+def run_hpo(
+    n_trials: int = 40, study_name: str = "churn-optuna", save_best: str | None = None
+):
     """
     Запускает исследование Optuna, логирует trials в MLflow и сохраняет лучшие параметры.
     """
@@ -57,7 +59,14 @@ def run_hpo(n_trials: int = 40, study_name: str = "churn-optuna", save_best: str
 
     if save_best:
         with open(save_best, "w", encoding="utf-8") as f:
-            json.dump({"best_value": study.best_value, "best_params": study.best_trial.params}, f, indent=2)
+            json.dump(
+                {
+                    "best_value": study.best_value,
+                    "best_params": study.best_trial.params,
+                },
+                f,
+                indent=2,
+            )
         logger.info("Сохранено в %s", save_best)
 
     return study

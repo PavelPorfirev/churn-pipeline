@@ -39,7 +39,10 @@ def load_model():
             with open(METADATA_PATH, "r", encoding="utf-8") as f:
                 md = json.load(f)
             expected_columns = md.get("feature_columns")
-            logger.info("Загружено %d ожидаемых колонок", len(expected_columns) if expected_columns else 0)
+            logger.info(
+                "Загружено %d ожидаемых колонок",
+                len(expected_columns) if expected_columns else 0,
+            )
         except Exception as e:
             logger.warning("Не удалось загрузить метаданные %s: %s", METADATA_PATH, e)
             expected_columns = None

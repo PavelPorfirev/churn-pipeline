@@ -13,14 +13,18 @@ def get_feature_list(df: pd.DataFrame) -> tuple[list[str], list[str]]:
     return numeric, categorical
 
 
-def build_preprocessor(numeric_features: list[str], categorical_features: list[str]) -> ColumnTransformer:
+def build_preprocessor(
+    numeric_features: list[str], categorical_features: list[str]
+) -> ColumnTransformer:
     """
     Возвращает ColumnTransformer:
       - StandardScaler для числовых;
       - OneHotEncoder с sparse=True для категорий.
     """
     num_pipeline = Pipeline([("scaler", StandardScaler())])
-    cat_pipeline = Pipeline([("ohe", OneHotEncoder(handle_unknown="ignore", sparse_output=True))])
+    cat_pipeline = Pipeline(
+        [("ohe", OneHotEncoder(handle_unknown="ignore", sparse_output=True))]
+    )
     preprocessor = ColumnTransformer(
         transformers=[
             ("num", num_pipeline, numeric_features),
